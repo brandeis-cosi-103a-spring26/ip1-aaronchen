@@ -1,28 +1,45 @@
 package edu.brandeis.cosi103a.ip1;
 
-import static org.junit.Assert.assertTrue;
-
+import static org.junit.Assert.*;
 import org.junit.Test;
 
 public class AppTest {
+
     @Test
-    public void testRollDieWithinBounds() {
-        for (int i = 0; i < 1000; i++) {
-            int roll = App.rollDie();
-            assertTrue(roll >= 1 && roll <= 6);
-        }
+    public void buyingCardReducesSupply() {
+        Supply supply = new Supply();
+        Card card = supply.buyCard(8);
+
+        assertNotNull(card);
+        assertTrue(card.getCost() <= 8);
     }
 
     @Test
-    public void testMultipleRollsAreValid() {
-        int[] results = new int[100];
+    public void cannotBuyUnaffordableCard() {
+        Supply supply = new Supply();
+        Card card = supply.buyCard(1);
 
-        for (int i = 0; i < results.length; i++) {
-            results[i] = App.rollDie();
+        assertNotNull(card);
+        assertEquals(0, card.getCost());
+    }
+
+    @Test
+    public void frameworksGoneWhenEmpty() {
+        Supply supply = new Supply();
+
+        for (int i = 0; i < 8; i++) {
+            supply.buyCard(100);
         }
 
-        for (int roll : results) {
-            assertTrue(roll >= 1 && roll <= 6);
-        }
+        assertTrue(supply.frameworksGone());
+    }
+
+    @Test
+    public void starterCardsComeFromSupply() {
+        Supply supply = new Supply();
+        Card bitcoin = supply.takeStarter("Bitcoin");
+
+        assertNotNull(bitcoin);
+        assertEquals("Bitcoin", bitcoin.getName());
     }
 }
