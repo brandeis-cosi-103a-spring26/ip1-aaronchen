@@ -3,7 +3,7 @@ package edu.brandeis.cosi103a.ip1;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
-public class SupplyTest {
+public class AppTest {
 
     @Test
     public void buyingCardReducesSupply() {
