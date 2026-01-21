@@ -24,6 +24,7 @@ public class App {
         p2.drawHand(5);
 
         Player current = new Random().nextBoolean() ? p1 : p2;
+        
 
         while (!supply.frameworksGone()) {
             int coins = current.playCryptoCards();
